@@ -1,0 +1,18 @@
+describe('template spec', () => {
+    it('check changes in settings', () => {
+        cy.visit('https://olx.pl/')
+        cy.get('#onetrust-accept-btn-handler').click()
+       cy.get('[data-cy="common_link_header_myaccount"]').click()
+       cy.origin('https://pl.login.olx.com', () => {
+
+       
+       cy.get('[data-testid="username-field"]').type("testerautomatyzer@gmail.com")
+       cy.get('[data-testid="password-field"]').type("Pop1pop1")
+        cy.get('[data-testid="login-submit-button"]').click()
+        
+    })
+    
+
+
+})
+})
