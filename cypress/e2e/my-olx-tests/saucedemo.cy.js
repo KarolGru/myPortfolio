@@ -17,8 +17,9 @@ describe('template spec', function() {
  cy.get('[class="btn btn-primary"]').click()
  cy.wait(10000)
  cy.reload()
-
-
+cy.wait(2000)
+cy.get('[class="d-block ui-w-30 rounded-circle"]').click()
+cy. get('[class="ion ion-ios-log-out text-danger"]').click()
 
 })
    })
