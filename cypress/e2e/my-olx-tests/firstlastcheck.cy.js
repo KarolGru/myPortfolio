@@ -14,7 +14,6 @@ describe('test hooks',function()  {
 
     afterEach(() => {
             cy.get('[type="submit"]').click()
-            cy.wait(3000)
             cy.get('[class="d-block ui-w-30 rounded-circle"]').click()
             cy. get('[class="ion ion-ios-log-out text-danger"]').click()
     })
