@@ -1,6 +1,3 @@
-import { slowCypressDown } from "cypress-slow-down"
-import "cypress-slow-down/commands"
-
 describe("changes  in settings wiget ", function () {
   it("settings off", function () {
     // bez poniższego kodu uruchomienie testu jest niemożliwe ze wzglęu na specyfikę wystepującego błędu
@@ -8,7 +5,7 @@ describe("changes  in settings wiget ", function () {
       console.log(err)
       return false
     })
-    slowCypressDown(false)
+
     cy.visit("https://feedbackui.com/")
     cy.contains("Log in").click()
     cy.get("#email-address").type("user2@gmail.com")
@@ -18,9 +15,7 @@ describe("changes  in settings wiget ", function () {
     cy.get('[class="flex-shrink-0 pr-2"]').first().click()
     cy.contains("Settings").click()
     cy.get('[data-cy="input"]').clear()
-
-    cy.get('[data-cy="input"]').type("Test").slowDown(1000)
-    cy.slowDownEnd()
+    cy.get('[data-cy="input"]').type("Test", { delay: 500 })
 
     //click on "Widget Button Position" button  to see other options
     cy.get('[class="-mr-1 ml-2 h-5 w-5"]').click()
