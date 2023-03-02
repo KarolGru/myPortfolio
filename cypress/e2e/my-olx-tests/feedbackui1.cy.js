@@ -1,6 +1,6 @@
 describe("changes  in settings wiget ", function () {
   it("settings off", function () {
-    // bez poniższego kodu uruchomienie testu jest niemożliwe ze wzglęu na specyfikę wystepującego błędu
+    // dodane ponieważ feddback widget failuje
     Cypress.on("uncaught:exception", (err, runnable) => {
       console.log(err)
       return false
