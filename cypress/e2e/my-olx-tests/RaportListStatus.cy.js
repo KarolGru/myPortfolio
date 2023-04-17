@@ -5,7 +5,7 @@ describe("changes  project priority and report status", function () {
       return false
     })
     // dodane ponieważ feddback widget failuje
-    cy.visit("https://feedbackui.com/")
+    cy.visit("https://dev.feedbackui.com/")
     cy.contains("Log in").click()
     cy.get("#email-address").type("user2@gmail.com")
     cy.get("#password").type(12345)
@@ -24,6 +24,11 @@ describe("changes  project priority and report status", function () {
     var priority = [low, Medium, High, Urgent1]
     var name1 = ["Low", "Medium", "High", "Urgent"]
     for (let i = 0; i < name1.length; i++) {
+      cy.get('[data-cy="row-col-updatedAt"]')
+        .first()
+        .invoke("text")
+        .as("data1")
+        .then(cy.log)
       cy.get('[data-cy="row-col-priorityStatus"]')
         .first()
         .then((txt) => {
@@ -35,6 +40,12 @@ describe("changes  project priority and report status", function () {
           cy.get('[data-cy="priority-status-dropdown"]')
             .first()
             .should("have.text", name1[i])
+          cy.get('[data-cy="row-col-updatedAt"]')
+            .first()
+            .invoke("text")
+            .as("update2")
+            .then(cy.log)
+            .then((update2) => expect(this.update2).not.equal(this.data1))
         })
     }
   })
@@ -49,6 +60,11 @@ describe("changes  project priority and report status", function () {
     var status = [closed, openn, inprogress, resolved, urgent2]
     var name2 = ["Closed", "Open", "In Progress", "Resolved", "Urgent"]
     for (let i = 0; i < name2.length; i++) {
+      cy.get('[data-cy="row-col-updatedAt"]')
+        .first()
+        .invoke("text")
+        .as("data1")
+        .then(cy.log)
       cy.get('[data-cy="report-status-dropdown"]')
         .first()
         .find("span")
@@ -61,6 +77,12 @@ describe("changes  project priority and report status", function () {
       cy.get('[data-cy="report-status-dropdown"]')
         .first()
         .should("have.text", name2[i])
+      cy.get('[data-cy="row-col-updatedAt"]')
+        .first()
+        .invoke("text")
+        .as("update2")
+        .then(cy.log)
+        .then((update2) => expect(this.update2).not.equal(this.data1))
     }
   })
 })
