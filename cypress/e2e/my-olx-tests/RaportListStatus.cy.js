@@ -29,6 +29,7 @@ describe("changes  project priority and report status", function () {
         .invoke("text")
         .as("data1")
         .then(cy.log)
+      cy.wait(1000)
       cy.get('[data-cy="row-col-priorityStatus"]')
         .first()
         .then((txt) => {
@@ -65,6 +66,7 @@ describe("changes  project priority and report status", function () {
         .invoke("text")
         .as("data1")
         .then(cy.log)
+      cy.wait(1000)
       cy.get('[data-cy="report-status-dropdown"]')
         .first()
         .find("span")
