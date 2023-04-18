@@ -20,33 +20,34 @@ describe("changes  project priority and report status", function () {
     var low = '[data-cy="priority-status-LOW"]'
     var Medium = '[data-cy="priority-status-MEDIUM"]'
     var High = '[data-cy="priority-status-HIGH"]'
-    var Urgent1 = '[data-cy="priority-status-URGENT"]'
-    var priority = [low, Medium, High, Urgent1]
-    var name1 = ["Low", "Medium", "High", "Urgent"]
-    for (let i = 0; i < name1.length; i++) {
+    var Urgent = '[data-cy="priority-status-URGENT"]'
+    var priority = [low, Medium, High, Urgent]
+    var namePriority = ["Low", "Medium", "High", "Urgent"]
+    for (let i = 0; i < namePriority.length; i++) {
       cy.get('[data-cy="row-col-updatedAt"]')
         .first()
         .invoke("text")
-        .as("data1")
-        .then(cy.log)
-      cy.wait(1000)
+        .as("updatedAtValue")
+
       cy.get('[data-cy="row-col-priorityStatus"]')
         .first()
-        .then((txt) => {
-          if (txt.text() !== name1[i]) {
+        .then((textPriority) => {
+          if (textPriority.text() !== namePriority[i]) {
             cy.get('[data-cy="row-col-priorityStatus"]').first().click()
             cy.get(priority[i]).click()
           }
 
+          cy.wait(1000)
           cy.get('[data-cy="priority-status-dropdown"]')
             .first()
-            .should("have.text", name1[i])
+            .should("have.text", namePriority[i])
           cy.get('[data-cy="row-col-updatedAt"]')
             .first()
             .invoke("text")
-            .as("update2")
-            .then(cy.log)
-            .then((update2) => expect(this.update2).not.equal(this.data1))
+            .as("updatedAfterClick")
+            .then(() =>
+              expect(this.updatedAfterClick).not.equal(this.updatedAtValue)
+            )
         })
     }
   })
@@ -57,34 +58,35 @@ describe("changes  project priority and report status", function () {
     var openn = '[data-cy="report-status-OPEN"]'
     var inprogress = '[data-cy="report-status-IN_PROGRESS"]'
     var resolved = '[data-cy="report-status-REVIEWED"]'
-    var urgent2 = '[data-cy="report-status-UNDER_REVIEW"]'
-    var status = [closed, openn, inprogress, resolved, urgent2]
-    var name2 = ["Closed", "Open", "In Progress", "Resolved", "Urgent"]
-    for (let i = 0; i < name2.length; i++) {
+    var urgentAtStatus = '[data-cy="report-status-UNDER_REVIEW"]'
+    var status = [closed, openn, inprogress, resolved, urgentAtStatus]
+    var nameStatus = ["Closed", "Open", "In Progress", "Resolved", "Urgent"]
+    for (let i = 0; i < nameStatus.length; i++) {
       cy.get('[data-cy="row-col-updatedAt"]')
         .first()
         .invoke("text")
-        .as("data1")
-        .then(cy.log)
-      cy.wait(1000)
+        .as("UpdatedAtStatus")
+
       cy.get('[data-cy="report-status-dropdown"]')
         .first()
         .find("span")
-        .then((txt2) => {
-          if (txt2.text() !== name2[i]) {
+        .then((textStatus) => {
+          if (textStatus.text() !== nameStatus[i]) {
             cy.get('[data-cy="report-status-dropdown"]').first().click()
             cy.get(status[i]).click()
           }
         })
+      cy.wait(1000)
       cy.get('[data-cy="report-status-dropdown"]')
         .first()
-        .should("have.text", name2[i])
+        .should("have.text", nameStatus[i])
       cy.get('[data-cy="row-col-updatedAt"]')
         .first()
         .invoke("text")
-        .as("update2")
-        .then(cy.log)
-        .then((update2) => expect(this.update2).not.equal(this.data1))
+        .as("updateStatusAfterClick")
+        .then(() =>
+          expect(this.updateStatusAfterClick).not.equal(this.UpdatedAtStatus)
+        )
     }
   })
 })
