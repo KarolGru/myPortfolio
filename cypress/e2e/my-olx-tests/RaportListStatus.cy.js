@@ -23,33 +23,34 @@ describe("changes  project priority and report status", function () {
     var Urgent = '[data-cy="priority-status-URGENT"]'
     var priority = [low, Medium, High, Urgent]
     var namePriority = ["Low", "Medium", "High", "Urgent"]
-    for (let i = 0; i < namePriority.length; i++) {
+    //for (let i = 0; i < namePriority.length; i++) {
+    priority.forEach((priorityInLoop, index) => {
+      const namePriorityInLoop = namePriority[index]
       cy.get('[data-cy="row-col-updatedAt"]')
         .first()
         .invoke("text")
         .as("updatedAtValue")
-
+      cy.wait(1000)
       cy.get('[data-cy="row-col-priorityStatus"]')
         .first()
         .then((textPriority) => {
-          if (textPriority.text() !== namePriority[i]) {
+          if (textPriority.text() !== namePriorityInLoop) {
             cy.get('[data-cy="row-col-priorityStatus"]').first().click()
-            cy.get(priority[i]).click()
+            cy.get(priorityInLoop).click()
           }
 
-          cy.wait(1000)
           cy.get('[data-cy="priority-status-dropdown"]')
             .first()
-            .should("have.text", namePriority[i])
+            .should("have.text", namePriorityInLoop)
           cy.get('[data-cy="row-col-updatedAt"]')
             .first()
             .invoke("text")
             .as("updatedAfterClick")
-            .then(() =>
+            .then(() => {
               expect(this.updatedAfterClick).not.equal(this.updatedAtValue)
-            )
+            })
         })
-    }
+    })
   })
 
   //   ////RAPORT STATUS
@@ -61,32 +62,34 @@ describe("changes  project priority and report status", function () {
     var urgentAtStatus = '[data-cy="report-status-UNDER_REVIEW"]'
     var status = [closed, openn, inprogress, resolved, urgentAtStatus]
     var nameStatus = ["Closed", "Open", "In Progress", "Resolved", "Urgent"]
-    for (let i = 0; i < nameStatus.length; i++) {
+    //for (let i = 0; i < nameStatus.length; i++) {
+    status.forEach((statusInLoop, index) => {
+      const nameStatInLoop = nameStatus[index]
       cy.get('[data-cy="row-col-updatedAt"]')
         .first()
         .invoke("text")
-        .as("UpdatedAtStatus")
+        .as("updatedAtStatus")
 
       cy.get('[data-cy="report-status-dropdown"]')
         .first()
         .find("span")
         .then((textStatus) => {
-          if (textStatus.text() !== nameStatus[i]) {
+          if (textStatus.text() !== nameStatInLoop) {
             cy.get('[data-cy="report-status-dropdown"]').first().click()
-            cy.get(status[i]).click()
+            cy.get(statusInLoop).click()
           }
         })
       cy.wait(1000)
       cy.get('[data-cy="report-status-dropdown"]')
         .first()
-        .should("have.text", nameStatus[i])
+        .should("have.text", nameStatInLoop)
       cy.get('[data-cy="row-col-updatedAt"]')
         .first()
         .invoke("text")
         .as("updateStatusAfterClick")
-        .then(() =>
-          expect(this.updateStatusAfterClick).not.equal(this.UpdatedAtStatus)
-        )
-    }
+        .then(() => {
+          expect(this.updateStatusAfterClick).not.equal(this.updatedAtStatus)
+        })
+    })
   })
 })
