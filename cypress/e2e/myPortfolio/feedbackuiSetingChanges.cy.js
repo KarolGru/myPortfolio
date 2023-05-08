@@ -6,7 +6,7 @@ describe("changes  in settings wiget ", function () {
       return false
     })
 
-    cy.visit("https://feedbackui.com/")
+    cy.visit("https://dev.feedbackui.com/")
     cy.contains("Log in").click()
     cy.get("#email-address").type("user2@gmail.com")
     cy.get("#password").type(12345)

@@ -6,7 +6,7 @@ describe("compare price plan ", function () {
   })
 
   it("Compare values after click", function () {
-    cy.visit("https://feedbackui.com/")
+    cy.visit("https://dev.feedbackui.com/")
     cy.get('[href = "/pricing"]').click()
     //zmiana trybu planu startowego
     //cy.contains("Yearly billing").click()
@@ -41,7 +41,7 @@ describe("compare price plan ", function () {
           .as("planPrice2")
           .then(cy.log)
           //porównanie kwot planów
-          .then((planPrice2) => {
+          .then(() => {
             expect(this.planPrice2).not.equal(this.planPrice1)
           })
       })
